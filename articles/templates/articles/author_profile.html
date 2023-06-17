@@ -1,0 +1,226 @@
+{% extends 'articles/base.html' %} 
+{% load crispy_forms_tags %}
+
+{% block css %}
+  <style type="text/css">
+    #bd-edit-profile-modal-lg .multiField:not(:last-child) {
+      border-bottom: 1px solid #e1e1e1;
+    }
+    @media screen 
+      and (min-device-width: 1200px) 
+      and (max-device-width: 1600px) { 
+        #bd-edit-profile-modal-lg .multiField {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  </style>
+{% endblock css %}
+  
+
+{% block content %}
+
+<!-- Page Header -->
+<header class="profile-header-container">
+  <div class="profile-header" 
+  {% if author.profile.cover_picture %}
+  style="background-image: linear-gradient(
+      45deg,
+      rgb(81 81 84 / 52%),
+      rgb(16 16 16 / 73%)
+    ),
+    url('{{ author.profile.cover_picture.url }}');"
+    {% else %}
+    style="background-image: linear-gradient(
+      45deg,
+      rgb(81 81 84 / 52%),
+      rgb(16 16 16 / 73%)
+    );"
+    {% endif %}>
+    <div class="header-container"></div>
+  </div>
+
+  <div class="container">
+    <div class="row profile-card bg-light px-3 py-4 border shadow-sm">
+      <!-- profile card image-side(left) -->
+      <div class="col-sm-12 col-md-4">
+        <div class="author-metadata">
+          <div class="author-image">
+            
+            {% if author.profile.profile_picture %}
+              <img src="{{ author.profile.profile_picture.url }}" 
+              width="200" />
+            {% else %}
+              <img src="https://picsum.photos/180">
+            {% endif %}
+              
+          </div>
+          <div class="author-descriptions">
+            <!-- desctiption items -->
+            <div class="auth-desc-item">
+              <div class="adi-icon">
+                <i class="fas fa-feather-alt"></i>
+              </div>
+              <div class="adi-text">
+                {{ author.article_set.count|default:"No"}} Article(s)
+              </div>
+            </div>
+            <!-- <div class="auth-desc-item">
+              <div class="adi-icon">
+                <i class="fas fa-sitemap"></i>
+              </div>
+              <div class="adi-text">5 Categories</div>
+            </div>
+            <div class="auth-desc-item">
+              <div class="adi-icon">
+                <i class="far fa-bookmark"></i>
+              </div>
+              <div class="adi-text">100 Read</div>
+            </div>
+            <div class="auth-desc-item">
+              <div class="adi-icon">
+                <i class="far fa-heart"></i>
+              </div>
+              <div class="adi-text">200 Loves</div>
+            </div> -->
+            <!-- description items end -->
+          </div>
+        </div>
+      </div>
+
+      <!-- profile card detail (right side) -->
+      <div class="col-sm-12 col-md-8">
+        <div class="author-info">
+          <div class="auth-info-top auth-item d-flex justify-content-between">
+            <div class="author-intro">
+              <h5>{{ author.username | title }}</h5>
+              <b class="text-muted">{{ author.profile.headline|default:"" }}</b>
+            </div>
+            {% if user == author %}
+            <div class="author-formlink">
+              <a href="{% url 'account:profile_complete' %}" target="_blank"
+                class="btn btn-outline-dark">
+                Academic Profile
+              </a>
+              <button type="button" class="btn btn-primary" 
+                data-toggle="modal" 
+                data-target="#bd-edit-profile-modal-lg">
+                Edit Profile
+              </button>
+              <!-- MODAL -->
+              <div class="modal fade" id="bd-edit-profile-modal-lg" 
+                tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <form action="" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">
+                          EDIT YOUR PROFILE
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        
+                        {% if not profile_not_found %}
+                          {{ profile_edit_form|crispy }}
+                          <hr>
+                          <h5>SOCIAL LINKS</h5>
+                          {{ social_links_form|crispy }}
+                        {% else %}
+                          <div class="alert alert-warning" role="alert">
+                            {{ profile_not_found }}
+                          </div>
+                        {% endif %}
+                          
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          <div class="auth-info-bottom mt-4">
+
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                  <strong>{{ message }}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            <div class="auth-info text">
+              {{ author.profile.summary }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Author articles -->
+<section id="author-articles" class="mb-5" style="position: relative;">
+  <div class="author-articles-container">
+    <div class="container border py-2 px-3 bg-light">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-6">
+          <h5>Author Articles</h5>
+        </div>
+        {% if user == author %}
+        <div class="col-6 d-flex justify-content-end">
+          <a href="{% url 'articles:create' %}" class="btn btn-primary"> Write Article </a>
+          <a href="" class="btn btn-primary"> Manage </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="container border-left border-bottom border-right">
+      <div class="row p-4">
+        {% for article in author.article_set.all %}
+        <div class="col-sm-12 col-md-3 mb-5">
+          <a href="{{ article.get_absolute_url }}">
+            <div class="shadow article-card rounded">
+              <img
+                src="{{article.featured_image.url}}"
+                alt=""
+                class="rounded article-preview-image"
+              />
+              <div class="p-3 article-content">
+                <p class="my-1">
+                  <b>
+                    <a href="{{ article.get_absolute_url }}">
+                      {{ article.title }}
+                    </a>
+                  </b>
+                </p>
+                <div class="metadata d-flex justify-content-between pr-4">
+                  <small class="fsm muted mr-3">{{ article.created }}</small>
+                  <!-- <small class="fsm muted">1500 VIEWS</small> -->
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer -->
+{% include 'articles/inc/_footer.html' %} {% endblock content %}
+
+  

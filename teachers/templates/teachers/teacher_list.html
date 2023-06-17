@@ -1,0 +1,28 @@
+{% extends 'dashboard.html' %}
+
+{% block dashboard-body %}
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-8">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for teacher in teachers %}
+          <tr>
+            <td>{{ teacher.name }}</td>
+            <td>{{ teacher.designation }}</td>
+            <td>{{ teacher.mobile|default_if_none:"" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

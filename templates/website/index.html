@@ -1,0 +1,423 @@
+{% extends 'website/partials/website_base.html' %} 
+{% load static %} 
+
+{% block main_content %}
+<!-- Header Section Start -->
+<header id="home" class="hero-area nav-hero">
+  <div class="overlay">
+    <span></span>
+    <span></span>
+  </div>
+
+  {# Navbar #} {% include 'website/partials/website_navbar.html' %}
+
+  <div class="container">
+    <div class="row space-100">
+      <div class="col-lg-6 col-md-12 col-xs-12">
+        <div class="contents">
+          <h2>{{ request_institute.name }}</h2>
+          <p>
+            {% if request_institute.motto %}
+              {{ request_institute.motto|safe }}
+            {% else %}
+              {{ request_institute.description|safe|default:"" }}
+            {% endif %}
+          </p>
+          <div class="header-button">
+            <a
+              href="{% url 'pages:online_admission' %}"
+              rel="nofollow"
+              target="_blank"
+              class="btn btn-border-filled"
+            >
+              Online admission
+            </a>
+            <a
+              href="https://rebrand.ly/slick-ud"
+              rel="nofollow"
+              target="_blank"
+              class="btn btn-border page-scroll"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 col-xs-12 p-0">
+        <div class="intro-img">
+          <img
+            src="{% static 'landing/img/intro.png' %}"
+            alt=""
+            style="width: 585px; height: 398px; margin-top: 113px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Department Section Start -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="row justify-content-center">
+      {% for dept in departments %}
+        <!-- Start Col -->
+        <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
+          <div class="services-item text-center">
+            <div class="icon">
+              {% if dept.department_icon %}
+                <img src="{{ dept.department_icon.url }}" alt="{{ dept.name }}">
+              {% else %}
+                <i class="lni-cog"></i>
+              {% endif %}
+            </div>
+            <h4>{{ dept.name }}</h4>
+            <p>
+              {{ dept.short_description|default:"" }}
+            </p>
+          </div>
+        </div>
+        <!-- End Col -->
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Cool Fetatures Section Start -->
+<section id="features" class="section">
+  <div class="container">
+    <!-- Start Row -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="features-text section-header text-center">
+          <div>
+            <h2 class="section-title">Services & Portals</h2>
+            <div class="desc-text">
+              <!-- <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                <br />
+                eiusmod tempor incididunt ut labore et dolore.
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Row -->
+    <!-- Start Row -->
+    <div class="row featured-bg">
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-6 col-xs-12 p-0">
+        <!-- Start Fetatures -->
+        <div class="feature-item featured-border1">
+          <div class="feature-icon float-left">
+            <i class="lni-coffee-cup"></i>
+          </div>
+          <div class="feature-info float-left">
+            <h4>Student Dashboard</h4>
+            <p>
+              Producing long lasting organic SEO results for <br />
+              brand of different kinds for more than a decade,<br />
+              we understand that’s your.
+            </p>
+          </div>
+        </div>
+        <!-- End Fetatures -->
+      </div>
+      <!-- End Col -->
+
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-6 col-xs-12 p-0">
+        <!-- Start Fetatures -->
+        <div class="feature-item featured-border2">
+          <div class="feature-icon float-left">
+            <i class="lni-briefcase"></i>
+          </div>
+          <div class="feature-info float-left">
+            <h4>Teacher Dashboard</h4>
+            <p>
+              Producing long lasting organic SEO results for <br />
+              brand of different kinds for more than a decade,<br />
+              we understand that’s your.
+            </p>
+          </div>
+        </div>
+        <!-- End Fetatures -->
+      </div>
+      <!-- End Col -->
+
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-6 col-xs-12 p-0">
+        <!-- Start Fetatures -->
+        <div class="feature-item featured-border1">
+          <div class="feature-icon float-left">
+            <i class="lni-invention"></i>
+          </div>
+          <div class="feature-info float-left">
+            <h4>Parents Dashboard</h4>
+            <p>
+              Producing long lasting organic SEO results for <br />
+              brand of different kinds for more than a decade,<br />
+              we understand that’s your.
+            </p>
+          </div>
+        </div>
+        <!-- End Fetatures -->
+      </div>
+      <!-- End Col -->
+
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-6 col-xs-12 p-0">
+        <!-- Start Fetatures -->
+        <div class="feature-item featured-border2">
+          <div class="feature-icon float-left">
+            <i class="lni-layers"></i>
+          </div>
+          <div class="feature-info float-left">
+            <h4>Own DashboardCommunity / Forum</h4>
+            <p>
+              Producing long lasting organic SEO results for <br />
+              brand of different kinds for more than a decade,<br />
+              we understand that’s your.
+            </p>
+          </div>
+        </div>
+        <!-- End Fetatures -->
+      </div>
+      <!-- End Col -->
+
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-6 col-xs-12 p-0">
+        <!-- Start Fetatures -->
+        <div class="feature-item featured-border3">
+          <div class="feature-icon float-left">
+            <i class="lni-reload"></i>
+          </div>
+          <div class="feature-info float-left">
+            <h4>Digital Management System</h4>
+            <p>
+              Producing long lasting organic SEO results for <br />
+              brand of different kinds for more than a decade,<br />
+              we understand that’s your.
+            </p>
+          </div>
+        </div>
+        <!-- End Fetatures -->
+      </div>
+      <!-- End Col -->
+
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-6 col-xs-12 p-0">
+        <!-- Start Fetatures -->
+        <div class="feature-item">
+          <div class="feature-icon float-left">
+            <i class="lni-support"></i>
+          </div>
+          <div class="feature-info float-left">
+            <h4>Online Based Schooling</h4>
+            <p>
+              Producing long lasting organic SEO results for <br />
+              brand of different kinds for more than a decade,<br />
+              we understand that’s your.
+            </p>
+          </div>
+        </div>
+        <!-- End Fetatures -->
+      </div>
+      <!-- End Col -->
+    </div>
+    <!-- End Row -->
+  </div>
+</section>
+<!-- Cool Fetatures Section End -->
+
+<!-- Blog Section -->
+<section id="blog" class="section">
+  <!-- Container Starts -->
+  <div class="container">
+    <!-- Start Row -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="blog-text section-header text-center">
+          <div>
+            <h2 class="section-title">Latest Blog Posts</h2>
+            <div class="desc-text">
+              <p>
+                Read our latest blog posts and browse all articles on our 
+                <a href="{% url 'articles:all_articles' %}">blog.</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Row -->
+    <!-- Start Row -->
+    <div class="row">   
+      {% for article in recent_blogs %}
+        <!-- Start Col -->
+        <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
+          <!-- Blog Item Starts -->
+          <div class="blog-item-wrapper">
+            <div class="blog-item-img">
+              <a href="single-post.html">
+                <img src="img/blog/01.jpg" class="img-fluid" alt="" />
+              </a>
+            </div>
+            <div class="blog-item-text">
+              <h3>
+                <a href="{{ article.get_absolute_url }}"
+                  title="{{ article.title }}">
+                  {{ article.title|truncatechars:30 }}  
+                </a>
+              </h3>
+              <p>
+                {{ article.short_description}}
+              </p>
+              <a href="{{ article.get_absolute_url }}" 
+                class="read-more">5 Min read</a>
+            </div>
+            <div class="author">
+              <span class="name">
+                <i class="lni-user"></i>
+                <a href="{% url 'articles:author_profile' article.author.username %}">
+                  Posted by {{ article.author }}
+                </a>
+              </span>
+              <span class="date float-right"
+                ><i class="lni-calendar"></i>
+                <a href="#">{{ article.created|date:"dS b y" }}</a>
+                </span
+              >
+            </div>
+          </div>
+          <!-- Blog Item Wrapper Ends-->
+        </div>
+        <!-- End Col -->
+      {% endfor %}
+    </div>
+    <!-- End Row -->
+  </div>
+</section>
+<!-- blog Section End -->
+
+<!-- Contact Us Section -->
+<section id="contact" class="section">
+  <!-- Container Starts -->
+  <div class="container">
+    <!-- Start Row -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="contact-text section-header text-center">
+          <div>
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="desc-text">
+              <!-- <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              </p>
+              <p>eiusmod tempor incididunt ut labore et dolore.</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Row -->
+    <!-- Start Row -->
+    <div class="row">
+      <!-- Start Col -->
+      <div class="col-lg-6 col-md-12">
+        <form id="contactForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  placeholder="Name"
+                  required
+                  data-error="Please enter your name"
+                />
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Subject"
+                  id="msg_subject"
+                  class="form-control"
+                  name="msg_subject"
+                  required
+                  data-error="Please enter your subject"
+                />
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                  data-error="Please enter your Email"
+                />
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  id="message"
+                  name="message"
+                  placeholder="Write Message"
+                  rows="4"
+                  data-error="Write your message"
+                  required
+                ></textarea>
+                <div class="help-block with-errors"></div>
+              </div>
+              <div class="submit-button">
+                <button class="btn btn-common" id="submit" type="submit">
+                  Submit
+                </button>
+                <div id="msgSubmit" class="h3 hidden"></div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- End Col -->
+      <!-- Start Col -->
+      <div class="col-lg-1"></div>
+      <!-- End Col -->
+      <!-- Start Col -->
+      <div class="col-lg-4 col-md-12">
+        <div class="contact-img">
+          <img
+            src="{% static 'landing/img/contact/01.png' %}"
+            class="img-fluid"
+            alt=""
+          />
+        </div>
+      </div>
+      <!-- End Col -->
+      <!-- Start Col -->
+      <div class="col-lg-1"></div>
+      <!-- End Col -->
+    </div>
+    <!-- End Row -->
+  </div>
+</section>
+<!-- Contact Us Section End -->
+
+{% endblock %}
